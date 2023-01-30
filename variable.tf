@@ -1,9 +1,10 @@
-
 variable "rg_config" {
-  
-  type = object({
+
+  type = list(object({
     create_rg = bool
     name = string
     location = string
-  })
+  }))
+  
 }
+

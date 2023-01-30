@@ -1,5 +1,5 @@
-rg_config = {
+rg_config = [{
   create_rg = true
-  location = "my-test-rg-100"
-  name = "west us3"
-}
+  location = "west us3"
+  name = "mytest-rg-100"
+}]
