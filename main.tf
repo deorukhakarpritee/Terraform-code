@@ -28,6 +28,21 @@ module "vnet_module" {
   ]
 }
 
+module "vnet_peering" {
+  for_each = { for each in var.vnet_peering_config : each.index => each }
+  source = "./vnet_peering"
+  vnetname1 = each.value.vnetname1
+  vnetname2 = each.value.vnetname2
+  rgname1 = each.value.rgname1
+  rgname2 = each.value.rgname2
+  peering1 = each.value.peering1
+  peering2 = each.value.peering2
+
+  depends_on = [
+    module.vnet_module
+  ]
+}
+
 
 
 

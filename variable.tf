@@ -20,3 +20,17 @@ variable "Vnet-Subnet_config" {
   }))
 }
 
+variable "vnet_peering_config" {
+  type = list(object({
+    index = number
+    vnetname1 = string
+    vnetname2 = string
+    rgname1 = string
+    rgname2 = string
+    peering1 = string
+    peering2 = string
+    
+  }))
+  
+}
+
