@@ -3,28 +3,28 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West Europe"
-}
+  name     = var.rgname 
+  location = var.location 
+  }
 
 resource "azurerm_virtual_network" "example" {
-  name                = "example-network"
-  address_space       = ["10.0.0.0/16"]
+  name                = var.vnetname
+  address_space       = var.address_space
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 }
 
 resource "azurerm_subnet" "example" {
-  name                 = "internal"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = var.address_prefixes 
 }
 
 
 
 resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
+  name                = var.nic_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -36,12 +36,12 @@ resource "azurerm_network_interface" "example" {
 }
 
 resource "azurerm_windows_virtual_machine" "example" {
-  name                = "example-machine"
+  name                = var.vm_name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  size                = "Standard_b2s"
-  admin_username      = "adminuser"
-  admin_password      = "P@$$w0rd1234!"
+  size                = var.vm_size 
+  admin_username      = var.admin_username
+  admin_password      = var.admin_password
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
@@ -60,19 +60,19 @@ resource "azurerm_windows_virtual_machine" "example" {
 }
 
 resource "azurerm_public_ip" "example" {
-  name                = "PublicIPForLB"
+  name                = var.piplb
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  allocation_method   = "Static"
+  allocation_method   = var.allocation_method
 }
 
 resource "azurerm_lb" "example" {
-  name                = "TestLoadBalancer"
+  name                = var.lb_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
   frontend_ip_configuration {
-    name                 = "PublicIPAddress"
+    name                 = var.feipname
     public_ip_address_id = azurerm_public_ip.example.id
   }
 }

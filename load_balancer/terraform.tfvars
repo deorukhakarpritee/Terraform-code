@@ -1,0 +1,15 @@
+rgname = "DC0610"
+location = "west us3"
+vnetname = "myVnet01"
+address_space = ["172.27.0.0/16"]
+subnet_name = "snet01"
+address_prefixes = ["172.27.1.0/24"]
+nic_name = "nic01"
+vm_name = "vm2802"
+vm_size = "Standard_B1ms"
+admin_username = "admin100"
+admin_password = "Passw0rd@12345"
+piplb = "PublicIPForLB"
+allocation_method = "Static"
+lb_name = "myFirstLB"
+feipname = "PublicIPAddress"
